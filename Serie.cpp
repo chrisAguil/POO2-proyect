@@ -16,31 +16,21 @@ ostream &operator<<(ostream &os, Serie &s)
     os<<s.id<<","<<s.nombre<<","<<s.duracion<<","<<s.genero<<",["<<s.serie<<", "<<s.episodio<<"]"<<s.calificacion;
     return os;
 }
-void Serie::imprimeXcalif(vector<Video*> &v, float calif){
-    vector<Video*> temporal;
-    for (Video* video : v)
+void Serie::imprimeXcalif(vector<unique_ptr<Video>> &v, float calif){
+    for (auto& video : v)
     {
         if (video->getCalificacion()==calif)
         {
-            temporal.push_back(video);
+            cout << *video << endl;
         }
     }
-    for (Video* video : temporal)
-    {
-        cout<<*video<<endl;
-    }
 }
-void Serie::imprimeXgenero(vector<Video*> &v, string &genero){
-    vector<Video*> temporal;
-    for (Video* video : v)
+void Serie::imprimeXgenero(vector<unique_ptr<Video>> &v, string &genero){
+    for (auto& video : v)
     {
         if (video->getGenero()==genero)
         {
-            temporal.push_back(video);
+            cout << *video << endl;
         }
-    }
-    for (Video* video : temporal)
-    {
-        cout<<*video<<endl;
     }
 }

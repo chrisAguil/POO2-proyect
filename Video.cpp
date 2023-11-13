@@ -1,4 +1,5 @@
 #include "Video.h"
+#include <memory>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -31,39 +32,29 @@ void Video::setCalificacion(float calificacion){
     }
 }
 // metodos de la clase
-void Video::imprimeXgenero(vector<Video*> &v, string &genero){
-    vector<Video*> temporal;
-    for (Video* video : v)
+void Video::imprimeXgenero(vector<unique_ptr<Video>> &v, string &genero){
+    for (auto& video : v)
     {
         if (video->getGenero()==genero)
         {
-            temporal.push_back(video);
+            cout<<*video<<endl;
         }
-    }
-    for (Video* video : temporal)
-    {
-        cout<<*video<<endl;
     }
 }
 
-void Video::imprimeXcalif(vector<Video*> &v, float calif){
-    vector<Video*> temporal;
-    for (Video* video : v)
+void Video::imprimeXcalif(vector<unique_ptr<Video>> &v, float calif){
+    for (auto& video : v)
     {
         if (video->getCalificacion()==calif)
         {
-            temporal.push_back(video);
+            cout<<*video<<endl;
         }
     }
-    for (Video* video : temporal)
-    {
-        cout<<*video<<endl;
-    } 
 }
 
-void Video::calificarVideo(vector<Video*> &v, string id, float calificacion){
+void Video::calificarVideo(vector<unique_ptr<Video>> &v, string id, float calificacion){
     if (calificacion > 1 && calificacion < 5){
-        for (Video *i : v)
+        for (auto& i : v)
         {
             if(i->id==id){
                 int califPromedio=i->calificacion;

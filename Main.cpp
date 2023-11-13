@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <memory>
+
 #include "Serie.h"
 #include "Video.h"
 #include "Pelicula.h"
@@ -17,8 +20,8 @@ int main(){
 
     // hacer dos vectores uno de series y otro de peliculas
     string genero; // genero del video a imprimir
-    vector<Video*> Peliculas; // vector de peliculas
-    vector<Video*> Series; // vector de series
+    vector<unique_ptr<Video>> Peliculas; // vector de videos
+    vector<unique_ptr<Video>> Series; // vector de series
     int opcion = 3; // opcion del menu
     string linea; // linea del archivo
     ifstream archivo; // archivo de texto
@@ -36,8 +39,7 @@ int main(){
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
             iss >> tipo >> id >> nombre >> duracion >> genero;
-            Video *v = new Pelicula(tipo, genero, nombre, id, duracion, 0, 0);
-            Peliculas.push_back(v);
+            Peliculas.push_back(make_unique<Video>(tipo, genero, nombre, id, duracion, 0, 0));
             // pasarlos al constructor
         }
         archivo.close();
@@ -56,8 +58,8 @@ int main(){
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
             iss >> tipo >> id >> nombre >> duracion >> genero >> serie >> episodio;
-            Video *v = new Serie(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio);
-            Series.push_back(v);
+            Series.push_back(make_unique<Video>(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio));
+
             // pasarlos al constructor
         }
     }
@@ -81,11 +83,11 @@ int main(){
         case 1:
             // imprime el Peliculas
             cout << "Peliculas" << endl;
-            for(Video* v: Peliculas){
+            for(auto& v: Peliculas){
                 cout << *v << endl;
             }
             cout << "Series" << endl;
-            for(Video* v: Series){
+            for(auto& v: Series){
                 cout << *v << endl;
             }
             break;
@@ -95,7 +97,7 @@ int main(){
             cin >> calif;
             cout << "Que video quieres calificar? (introduce su id)" << endl;
             cin >> id;
-            for(Video* v: Peliculas){
+            for(auto& v: Peliculas){
                 if(v->getId() == id && v->getCalificacion() == 0){
                     v->setCalificacion(calif);
                     break;
@@ -108,7 +110,7 @@ int main(){
             break;
         case 3:
             // imprime series por calificacion
-            for( Video* v: Series){
+            for( auto& v: Series){
                 if(v->getTipo() == "s"){
                     v->imprimeXcalif(Peliculas, calif);
                     break;
@@ -117,7 +119,7 @@ int main(){
             break;
         case 4:
             // imprime peliculas por calificacion
-            for( Video* v: Peliculas){
+            for( auto& v: Peliculas){
                 if(v->getTipo() == "p"){
                     v->imprimeXcalif(Peliculas, calif);
                     break;
@@ -126,7 +128,7 @@ int main(){
             break;
         case 5:
             // imprime series por genero
-            for( Video* v: Series){
+            for( auto& v: Series){
                 cout << "Que genero te gustaria ver? " << endl;
                 cin >> genero;
                 v->imprimeXgenero(Series, genero);
@@ -134,7 +136,7 @@ int main(){
             }
             break;
         case 6:
-            for( Video* v: Peliculas){
+            for( auto& v: Peliculas){
                 cout << "Que genero te gustaria ver? " << endl;
                 cin >> genero;
                 v->imprimeXgenero(Peliculas, genero);
@@ -150,13 +152,6 @@ int main(){
             cout << "Opcion no valida" << endl;
             break;
         }
-    }
-    // borrar la memoria asignada
-    for(Video* v: Peliculas){
-        delete v;
-    }
-    for(Video* v: Series){
-        delete v;
     }
     
     return 0;

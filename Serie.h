@@ -1,5 +1,6 @@
 #ifndef SERIE_H
 #define SERIE_H
+#include <memory>
 #include <vector>
 #include "Video.h"
 
@@ -13,8 +14,8 @@ public:
     Serie(string tipo, string nombre, int duracion, string genero, float calificacion, string id, int numCalificaciones, string serie, string episodio);
     Serie();
     // sobre escribir el metodo imrpimeXCalif
-    void imprimeXgenero(vector<Video*> &, string &genero)override;
-    void imprimeXcalif(vector<Video*> &, float)override;
+    void imprimeXgenero(vector<unique_ptr<Video>> &, string &genero)override;
+    void imprimeXcalif(vector<unique_ptr<Video>> &, float)override;
 
     friend ostream &operator<<(ostream &os, Serie &s);
 };

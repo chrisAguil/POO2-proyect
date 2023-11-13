@@ -1,35 +1,26 @@
 #include "Pelicula.h"
+#include <memory>
 #include <iostream>
 using namespace std;
 Pelicula::Pelicula():Video("p","","","",0,0,0.0){}
 
-void Pelicula::imprimeXcalif(vector<Video*> &v, float calif){
-    vector<Video*> temporal;
-    for (Video* video : v)
+void Pelicula::imprimeXcalif(vector<unique_ptr<Video>> &v, float calif){
+    for (auto& video : v)
     {
         if (video->getCalificacion()==calif)
         {
-            temporal.push_back(video);
+            cout<<*video<<endl;
         }
-    }
-    for (Video* video : temporal)
-    {
-        cout<<*video<<endl;
     }
 }
 
-void Pelicula::imprimeXgenero(vector<Video*> &v, string &genero){
-    vector<Video*> temporal;
-    for (Video* video : v)
+void Pelicula::imprimeXgenero(vector<unique_ptr<Video>> &v, string &genero){
+    for (auto& video : v)
     {
         if (video->getGenero()==genero)
         {
-            temporal.push_back(video);
+            cout << *video << endl;
         }
-    }
-    for (Video* video : temporal)
-    {
-        cout<<*video<<endl;
     }
 }
 
