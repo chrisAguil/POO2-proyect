@@ -24,8 +24,8 @@ class Video{
         string getId(){return id;}
         //metodos de la clase
         // que sentido tienen los metodos guardadGenero y guardarCalif?
-        virtual void imprimeXgenero(vector<Video*> &, string &genero);
-        virtual void imprimeXcalif(vector<Video*> &, float);
+        virtual void imprimeXgenero(vector<Video*> &, string &genero) = 0;
+        virtual void imprimeXcalif(vector<Video*> &, float) = 0;
         virtual void calificarVideo(vector<Video*> &, string, float);
 
         //funcion amiga 

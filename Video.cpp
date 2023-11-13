@@ -32,32 +32,32 @@ void Video::setCalificacion(float calificacion){
 }
 // metodos de la clase
 void Video::imprimeXgenero(vector<Video*> &v, string &genero){
-    vector<Video> temporal;
+    vector<Video*> temporal;
     for (Video* video : v)
     {
         if (video->getGenero()==genero)
         {
-            temporal.push_back(*video);
+            temporal.push_back(video);
         }
     }
-    for (Video video : temporal)
+    for (Video* video : temporal)
     {
-        cout<<video<<endl;
+        cout<<*video<<endl;
     }
 }
 
 void Video::imprimeXcalif(vector<Video*> &v, float calif){
-    vector<Video> temporal;
+    vector<Video*> temporal;
     for (Video* video : v)
     {
         if (video->getCalificacion()==calif)
         {
-            temporal.push_back(*video);
+            temporal.push_back(video);
         }
     }
-    for (Video video : temporal)
+    for (Video* video : temporal)
     {
-        cout<<video<<endl;
+        cout<<*video<<endl;
     } 
 }
 
