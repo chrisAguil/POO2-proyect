@@ -1,6 +1,7 @@
 #ifndef VIDEO_H
 #define VIDEO_H
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -13,7 +14,8 @@ class Video{
         int duracion, numCalificaciones;
     public:
         Video(); //constructor default
-        Video(string, string, string, string, int, int, float); //constructor con parametors
+        Video(string, string, string, string, int, int, float)
+        : tipo(tipo), genero(genero), nombre(nombre), id(id), duracion(duracion), numCalificaciones(numCalificaciones), calificacion(calificacion) {}; //constructor con parametors
         //setters
         void setCalificacion(float);
         //getters
