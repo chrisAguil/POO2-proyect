@@ -17,7 +17,7 @@ ostream &operator<<(ostream &os, Serie &s)
     os<<s.id<<","<<s.nombre<<","<<s.duracion<<","<<s.genero<<",["<<s.serie<<", "<<s.episodio<<"]"<<s.calificacion;
     return os;
 }
-void Serie::imprimeXcalif(vector<unique_ptr<Video>> &v, float calif){
+void Serie::imprimeXcalif(vector<shared_ptr<Video>> &v, float calif){
     for (auto& video : v)
     {
         if (video->getCalificacion()==calif)
@@ -26,7 +26,7 @@ void Serie::imprimeXcalif(vector<unique_ptr<Video>> &v, float calif){
         }
     }
 }
-void Serie::imprimeXgenero(vector<unique_ptr<Video>> &v, string &genero){
+void Serie::imprimeXgenero(vector<shared_ptr<Video>> &v, string &genero){
     for (auto& video : v)
     {
         if (video->getGenero()==genero)

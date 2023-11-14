@@ -20,8 +20,6 @@ int main(){
 
     // hacer dos vectores uno de series y otro de peliculas
     string genero; // genero del video a imprimir
-    vector<unique_ptr<Video>> Peliculas; // vector de videos
-    vector<unique_ptr<Video>> Series; // vector de series
     int opcion = 3; // opcion del menu
     string linea; // linea del archivo
     ifstream archivo; // archivo de texto
@@ -33,13 +31,18 @@ int main(){
     if(archivo.is_open()){
         while(getline(archivo, linea)){
             istringstream iss(linea);
-            string tipo, nombre, genero, id, serie, episodio;
+            string tipo, nombre, genero, id;
             int duracion, numCalificaciones = 0;
             float calificacion = 0; 
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
             iss >> tipo >> id >> nombre >> duracion >> genero;
+            if(!(iss >> tipo >> id >> nombre >> duracion >> genero)){
+                // La operación de lectura falló. Maneja el error aquí.
+                cerr << "Error al leer los datos del archivo.\n";
+            }else {
             videos.push_back(make_shared<Pelicula>(tipo, nombre, duracion, genero, 0, id, 0, 0));
+            }
             // Peliculas.push_back(make_unique<Pelicula>(tipo, genero, nombre, id, duracion, 0, 0));
             // pasarlos al constructor
         }
@@ -63,7 +66,7 @@ int main(){
                 cerr << "Error al leer los datos del archivo.\n";
             }else {
                 iss >> tipo >> id >> nombre >> duracion >> genero >> serie >> episodio;
-                Series.push_back(make_unique<Serie>(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio));
+                videos.push_back(make_shared<Serie>(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio));
             }
             // pasarlos al constructor
         }
@@ -89,11 +92,11 @@ int main(){
         case 1:
             // imprime el Peliculas
             cout << "Peliculas" << endl;
-            for(auto& v: Peliculas){
+            for(auto& v: videos){
                 cout << *v << endl;
             }
             cout << "Series" << endl;
-            for(auto& v: Series){
+            for(auto& v: videos){
                 cout << *v << endl;
             }
             break;
@@ -103,49 +106,49 @@ int main(){
             cin >> calif;
             cout << "Que video quieres calificar? (introduce su id)" << endl;
             cin >> id;
-            for(auto& v: Peliculas){
+            for(auto& v: videos){
                 if(v->getId() == id && v->getCalificacion() == 0){
                     v->setCalificacion(calif);
                     break;
                 }
                 else{
-                    v->calificarVideo(Peliculas, id, calif);
+                    v->calificarVideo(videos, id, calif);
                     break;
                 }
             }
             break;
         case 3:
             // imprime series por calificacion
-            for( auto& v: Series){
+            for( auto& v: videos){
                 if(v->getTipo() == "s"){
-                    v->imprimeXcalif(Peliculas, calif);
+                    v->imprimeXcalif(videos, calif);
                     break;
                 }
             }
             break;
         case 4:
             // imprime peliculas por calificacion
-            for( auto& v: Peliculas){
+            for( auto& v: videos){
                 if(v->getTipo() == "p"){
-                    v->imprimeXcalif(Peliculas, calif);
+                    v->imprimeXcalif(videos, calif);
                     break;
                 }
             }
             break;
         case 5:
             // imprime series por genero
-            for( auto& v: Series){
+            for( auto& v: videos){
                 cout << "Que genero te gustaria ver? " << endl;
                 cin >> genero;
-                v->imprimeXgenero(Series, genero);
+                v->imprimeXgenero(videos, genero);
                 break;
             }
             break;
         case 6:
-            for( auto& v: Peliculas){
+            for( auto& v: videos){
                 cout << "Que genero te gustaria ver? " << endl;
                 cin >> genero;
-                v->imprimeXgenero(Peliculas, genero);
+                v->imprimeXgenero(videos, genero);
                 break;
             }
         

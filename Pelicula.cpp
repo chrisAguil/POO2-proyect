@@ -4,7 +4,7 @@
 using namespace std;
 Pelicula::Pelicula():Video("p","","","",0,0,0.0){}
 
-void Pelicula::imprimeXcalif(vector<unique_ptr<Video>> &v, float calif){
+void Pelicula::imprimeXcalif(vector<shared_ptr<Video>> &v, float calif){
     for (auto& video : v)
     {
         if (video->getCalificacion()==calif)
@@ -14,7 +14,7 @@ void Pelicula::imprimeXcalif(vector<unique_ptr<Video>> &v, float calif){
     }
 }
 
-void Pelicula::imprimeXgenero(vector<unique_ptr<Video>> &v, string &genero){
+void Pelicula::imprimeXgenero(vector<shared_ptr<Video>> &v, string &genero){
     for (auto& video : v)
     {
         if (video->getGenero()==genero)

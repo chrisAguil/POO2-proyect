@@ -22,7 +22,7 @@ void Video::setCalificacion(float calificacion){
     }
 }
 // metodos de la clase
-void Video::imprimeXgenero(vector<unique_ptr<Video>> &v, string &genero){
+void Video::imprimeXgenero(vector<shared_ptr<Video>> &v, string &genero){
     for (auto& video : v)
     {
         if (video->getGenero()==genero)
@@ -32,7 +32,7 @@ void Video::imprimeXgenero(vector<unique_ptr<Video>> &v, string &genero){
     }
 }
 
-void Video::imprimeXcalif(vector<unique_ptr<Video>> &v, float calif){
+void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float calif){
     for (auto& video : v)
     {
         if (video->getCalificacion()==calif)
@@ -42,7 +42,7 @@ void Video::imprimeXcalif(vector<unique_ptr<Video>> &v, float calif){
     }
 }
 
-void Video::calificarVideo(vector<unique_ptr<Video>> &v, string id, float calificacion){
+void Video::calificarVideo(vector<shared_ptr<Video>> &v, string id, float calificacion){
     if (calificacion > 1 && calificacion < 5){
         for (auto& i : v)
         {
