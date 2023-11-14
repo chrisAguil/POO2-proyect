@@ -70,6 +70,6 @@ void Video::calificarVideo(vector<shared_ptr<Video>> &v, string &id, float &cali
 }
 
 ostream &operator<<(ostream &os, Video &v){
-    os<<v.id<<","<<v.nombre<<","<<v.duracion<<","<<v.genero<<v.calificacion;
+    os<<v.id<<","<<v.nombre<<","<<v.duracion<<","<<v.genero<<","<<v.calificacion;
     return os;
 }
