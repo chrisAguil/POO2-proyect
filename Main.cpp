@@ -35,11 +35,11 @@ int main(){
             istringstream iss(linea);
             string tipo, nombre, genero, id, serie, episodio;
             int duracion, numCalificaciones = 0;
-            float calificacion = 0;
+            float calificacion = 0; 
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
             iss >> tipo >> id >> nombre >> duracion >> genero;
-            Peliculas.push_back(make_unique<Video>(tipo, genero, nombre, id, duracion, 0, 0));
+            Peliculas.push_back(make_unique<Pelicula>(tipo, genero, nombre, id, duracion, 0, 0));
             // pasarlos al constructor
         }
         archivo.close();
@@ -57,11 +57,16 @@ int main(){
             float calificacion = 0;
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
-            iss >> tipo >> id >> nombre >> duracion >> genero >> serie >> episodio;
-            Series.push_back(make_unique<Video>(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio));
-
+            if (!(iss >> tipo >> id >> nombre >> duracion >> genero >> serie >> episodio)) {
+                // La operación de lectura falló. Maneja el error aquí.
+                cerr << "Error al leer los datos del archivo.\n";
+            }else {
+                iss >> tipo >> id >> nombre >> duracion >> genero >> serie >> episodio;
+                Series.push_back(make_unique<Serie>(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio));
+            }
             // pasarlos al constructor
         }
+        archivo.close();
     }
     else{
         cout << "No se pudo abrir el archivo" << endl;

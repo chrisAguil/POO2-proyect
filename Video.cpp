@@ -9,16 +9,6 @@ using namespace std;
 
 //constructor default inicializado con el constructor con parametros
 Video::Video():Video("v","","","",0,0,0.0){}
-//constructor con parametros
-Video::Video(string tipo, string genero, string nombre, string id, int duracion, int numCalificaciones, float calificacion):Video(){
-    this->tipo=tipo;
-    this->genero=genero;
-    this->nombre=nombre; 
-    this->id=id;
-    setCalificacion(calificacion);
-    this->duracion=duracion;
-    this->numCalificaciones=numCalificaciones;
-}
 
 // bloque de setters
 void Video::setCalificacion(float calificacion){
