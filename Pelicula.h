@@ -11,8 +11,6 @@ class Pelicula:public Video{
     public:
         Pelicula();
         Pelicula(string, string, string, string, int, int, float) : Video(tipo, genero, nombre, id, duracion, numCalificaciones, calificacion){};
-        void imprimeXgenero(vector<shared_ptr<Video>> &videos, string &genero) override;
-        void imprimeXcalif(vector<shared_ptr<Video>> &videos, float) override;
 
         friend ostream& operator<<(ostream& os, Pelicula& p){
             os<<"Tipo: "<<p.tipo<<endl;

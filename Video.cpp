@@ -9,7 +9,16 @@ using namespace std;
 
 //constructor default inicializado con el constructor con parametros
 Video::Video():Video("v","","","",0,0,0.0){}
-
+// constructor con parametros
+Video::Video(string tipo, string nombre, string id, string genero, int duracion, int numCalificaciones, float calificacion){
+    this->tipo=tipo;
+    this->nombre=nombre;
+    this->id=id;
+    this->genero=genero;
+    this->duracion=duracion;
+    this->numCalificaciones=0;
+    this->calificacion=0.0;
+}
 // bloque de setters
 void Video::setCalificacion(float calificacion){
     // verificamos que la calificacion este entre 0 y 5
@@ -32,7 +41,7 @@ void Video::imprimeXgenero(vector<shared_ptr<Video>> &v, string &genero){
     }
 }
 
-void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float calif){
+void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float &calif){
     for (auto& video : v)
     {
         if (video->getCalificacion()==calif)
@@ -42,7 +51,7 @@ void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float calif){
     }
 }
 
-void Video::calificarVideo(vector<shared_ptr<Video>> &v, string id, float calificacion){
+void Video::calificarVideo(vector<shared_ptr<Video>> &v, string &id, float &calificacion){
     if (calificacion > 1 && calificacion < 5){
         for (auto& i : v)
         {
