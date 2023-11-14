@@ -19,7 +19,6 @@ int main()
     string id; // id del video a calificar
     float calif; // calificacion del video a calificar
 
-    // hacer dos vectores uno de series y otro de peliculas
     string genero; // genero del video a imprimir
     int opcion = 3; // opcion del menu
     string linea; // linea del archivo
@@ -27,7 +26,12 @@ int main()
 
     vector<shared_ptr<Video>> videos; // vector inteligente de videos
 
-    // try catch para abrir el archivo
+    // ----------------------------------------------------------
+    // Bloque de lectura de archivos, creacion de objetos, 
+    // guardado en el vector inteligente y manejo de excepciones 
+    // para peliculas
+    // ----------------------------------------------------------
+
     try
     {
         archivo.open("peliculas.txt"); 
@@ -44,7 +48,14 @@ int main()
             int duracion, numCalificaciones = 0;
             float calificacion = 0; 
 
-            // try catch para leer los datos de la linea y la conversion de string a int
+            /* 
+                ------------------------------------------
+                Segundo bloque try-catch para manejar la 
+                lectura de datos de la línea y la conversión 
+                de la duración de string a int    
+                ------------------------------------------        
+            */
+
             try
             {
                 if(!(iss >> tipo >> id >> nombre >> duracion_str >> genero)) // lee los datos de la linea
@@ -57,7 +68,15 @@ int main()
                 videos.push_back(make_shared<Pelicula>(tipo, nombre, id, genero, duracion, 0, 0.0));
 
             }
-            // si no se pudo convertir la duracion a int se llama a la excepcion
+
+            /* 
+                ------------------------------------------
+                Bloque catch para manejar la excepcion de
+                la conversion de la duracion de string a int
+                y la lectura de la linea
+                ------------------------------------------        
+            */      
+
             catch(const std::invalid_argument& e)
             {
                 std::cerr << "Error al convertir la duracion a un numero" << '\n';
@@ -70,11 +89,22 @@ int main()
         }
         archivo.close();
     }
-    // si no se pudo abrir el archivo se llama a la excepcion
+
+    /* 
+        ------------------------------------------
+        Bloque catch para manejar la excepcion de
+        la apertura del archivo 
+        ------------------------------------------        
+    */
+
     catch(const std::exception& e)
     {
         cerr << e.what() << '\n';
     }
+
+    // --------------------------------------------------------------------------------------------------------------------------------------
+    // Bloque de lectura de archivos, creacion de objetos, guardado en el vector inteligente y manejo de excepciones pero ahora para series
+    // --------------------------------------------------------------------------------------------------------------------------------------
 
     try
     {
@@ -93,7 +123,14 @@ int main()
             int duracion, numCalificaciones = 0;
             float calificacion = 0;
 
-            // try catch para leer los datos de la linea y la conversion de string a int
+            /* 
+                ------------------------------------------
+                Segundo bloque try-catch para manejar la 
+                lectura de datos de la línea y la conversión 
+                de la duración de string a int    
+                ------------------------------------------        
+            */
+
             try
             {
                 // lee los datos de la linea sino se puede thorow exception
@@ -106,8 +143,16 @@ int main()
                 // crea un objeto de tipo Serie y lo guarda en el vector inteligente
                 videos.push_back(make_shared<Serie>(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio));
             }
-            // si no se pudo convertir la duracion a int se llama a la excepcion
-            catch(const std::invalid_argument& e)
+
+            /* 
+                ------------------------------------------
+                Bloque catch para manejar la excepcion de
+                la conversion de la duracion de string a int
+                y la lectura de la linea
+                ------------------------------------------        
+            */   
+
+           catch(const std::invalid_argument& e)
             {
                 std::cerr << "Error al convertir la duracion a un numero" << '\n';
             }    
@@ -119,15 +164,28 @@ int main()
         }
         archivo.close();
     }
-    // si no se pudo abrir el archivo se llama a la excepcion
+
+    /* 
+        ------------------------------------------
+        Bloque catch para manejar la excepcion de
+        la apertura del archivo 
+        ------------------------------------------        
+    */
+
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
 
-    // ------------------------------
-    // Menu
-    // ------------------------------
+
+/*
+  __  __                             
+ |  \/  |  _   _   _ __     __ _   _ __  
+ | |\/| | | | | | | '_ \   / _` | | '_ \ 
+ | |  | | | |_| | | | | | | (_| | | | | |
+ |_|  |_|  \__,_| |_| |_|  \__,_| |_| |_|
+
+*/
 
     while (opcion != 0 && continuar)
     {
