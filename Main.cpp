@@ -155,21 +155,3 @@ int main(){
     
     return 0;
 }
-
-// si sobrecargo el operador << para imprimir el objeto diferente
-// cuando imprimo el Peliculas sea imprime correctamente?
-
-// me convendría hacer que video fuera una clase abstracta?
-// haciendo clases puras a imprimirXgenero y imprimirXcalif
-// para asi en cada una de ellas sobrecargar el operador <<
-// y asi imprimir correctamente el objeto
-
-// que tendria que hacer si la clase serie tiene dos atributos extras
-// que la clase video no tiene?
-// podria agregarlos a la clase serie heredando de video, pero esto 
-// me impide recopilar correctamente los datos del archivo de texto
-// idea: puedo crear un if cuando recopile los datos del archivo de texto
-//       para que si el tipo es s, entonces recopile los datos de la clase
-// como lo implemento?
-
-// shared_ptr<Video> v = make_shared<Pelicula>(tipo, nombre, 0, genero, 0, id, 0, 0);
