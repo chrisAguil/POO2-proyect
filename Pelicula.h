@@ -10,8 +10,7 @@ using namespace std;
 class Pelicula:public Video{
     public:
         Pelicula();
-        Pelicula(string, string, string, string, int, int, float) : Video(tipo, genero, nombre, id, duracion, numCalificaciones, calificacion){};
-
+        Pelicula(string, string, string, string, int, int, float) : Video(tipo, nombre, id, genero, duracion, numCalificaciones, calificacion){};
         friend ostream& operator<<(ostream& os, Pelicula& p){
             os<<"Tipo: "<<p.tipo<<endl;
             os<<"Genero: "<<p.genero<<endl;
