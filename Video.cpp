@@ -9,7 +9,8 @@ using namespace std;
 //constructor default inicializado con el constructor con parametros
 Video::Video():Video("v","","","",0,0,0.0){}
 // constructor con parametros
-Video::Video(string tipo, string nombre, string id, string genero, int duracion, int numCalificaciones, float calificacion){
+Video::Video(string tipo, string nombre, string id, string genero, int duracion, int numCalificaciones, float calificacion)
+{
     this->tipo=tipo;
     this->nombre=nombre;
     this->id=id;
@@ -21,10 +22,12 @@ Video::Video(string tipo, string nombre, string id, string genero, int duracion,
 // bloque de setters
 void Video::setCalificacion(float calificacion){
     // verificamos que la calificacion este entre 0 y 5
-    if(0<=calificacion<=5){
+    if(0<=calificacion<=5)
+    {
         this->calificacion=calificacion;
     }
-    else{ 
+    else
+    { 
         this->calificacion=0;
         cout<<"Ingresa un valor valido"<<endl;
     }
@@ -51,10 +54,12 @@ void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float &calif){
 }
 
 void Video::calificarVideo(vector<shared_ptr<Video>> &v, string &id, float &calificacion){
-    if (calificacion >= 1 && calificacion <= 5){
+    if (calificacion >= 1 && calificacion <= 5)
+    {
         for (auto& i : v)
         {
-            if(i->id==id){
+            if(i->id==id)
+            {
                 int califPromedio=i->calificacion;
                 int cont=i->numCalificaciones;
                 float promedio= round((califPromedio*cont+calificacion)/(cont+1));
@@ -63,7 +68,11 @@ void Video::calificarVideo(vector<shared_ptr<Video>> &v, string &id, float &cali
                 i->numCalificaciones++;
                 return;
             }
-            cout<<"Id no encontrado"<<endl;
+            else
+            {
+                cout<<"Id no encontrado"<<endl;
+                break;
+            }
         }
     }
     cout << "valor invalido" << endl;
