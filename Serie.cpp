@@ -8,6 +8,8 @@ Serie::Serie(string tipo, string nombre, int duracion, string genero, float cali
 {
     this->tipo=tipo;
 }
+Serie::Serie():Serie("s","",0,"",0.0,"",0,"",""){}
+
 
 ostream &operator<<(ostream &os, Serie &s) 
 {
