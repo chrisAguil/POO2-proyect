@@ -103,11 +103,9 @@ int main(){
             for(auto& v: videos){
                 if(v->getId() == id && v->getNumCalificaciones() == 0){
                     v->setCalificacion(calif);
-                    break;
                 }
                 else{
                     v->calificarVideo(videos, id, calif);
-                    break;
                 }
             }
             break;
@@ -116,7 +114,6 @@ int main(){
             for( auto& v: videos){
                 if(v->getTipo() == "s"){
                     v->imprimeXcalif(videos, calif);
-                    break;
                 }
             }
             break;
@@ -125,7 +122,6 @@ int main(){
             for( auto& v: videos){
                 if(v->getTipo() == "p"){
                     v->imprimeXcalif(videos, calif);
-                    break;
                 }
             }
             break;
@@ -135,7 +131,6 @@ int main(){
                 cout << "Que genero te gustaria ver? " << endl;
                 cin >> genero;
                 v->imprimeXgenero(videos, genero);
-                break;
             }
             break;
         case 6:
@@ -143,7 +138,6 @@ int main(){
                 cout << "Que genero te gustaria ver? " << endl;
                 cin >> genero;
                 v->imprimeXgenero(videos, genero);
-                break;
             }
         
             break;
