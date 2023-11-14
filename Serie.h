@@ -1,7 +1,6 @@
 #ifndef SERIE_H
 #define SERIE_H
-#include <memory>
-#include <vector>
+
 #include "Video.h"
 
 using namespace std;

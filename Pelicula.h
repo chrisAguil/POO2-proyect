@@ -1,8 +1,7 @@
 #ifndef PELICULA_H
 #define PELICULA_H
+
 #include "Video.h"
-#include <memory>
-#include <string>
 #include <iostream>
 
 using namespace std;

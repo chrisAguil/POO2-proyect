@@ -2,7 +2,7 @@
 #define VIDEO_H
 
 #include <memory>
-#include <string>
+#include <iostream>
 #include <vector>
 
 using namespace std;

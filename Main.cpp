@@ -41,7 +41,7 @@ int main(){
                 // La operación de lectura falló. Maneja el error aquí.
                 cerr << "Error al leer los datos del archivo.\n";
             }else {
-            videos.push_back(make_shared<Pelicula>(tipo, nombre, duracion, genero, 0, id, 0, 0));
+            videos.push_back(make_shared<Pelicula>(tipo, nombre, id, genero, 0, 0, 0.0));
             }
             // Peliculas.push_back(make_unique<Pelicula>(tipo, genero, nombre, id, duracion, 0, 0));
             // pasarlos al constructor
