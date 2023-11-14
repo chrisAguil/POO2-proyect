@@ -21,7 +21,7 @@ Video::Video(string tipo, string nombre, string id, string genero, int duracion,
 // bloque de setters
 void Video::setCalificacion(float calificacion){
     // verificamos que la calificacion este entre 0 y 5
-    if(0<calificacion<=5){
+    if(0<=calificacion<=5){
         this->calificacion=calificacion;
     }
     else{ 
@@ -51,7 +51,7 @@ void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float &calif){
 }
 
 void Video::calificarVideo(vector<shared_ptr<Video>> &v, string &id, float &calificacion){
-    if (calificacion > 1 && calificacion < 5){
+    if (calificacion >= 1 && calificacion <= 5){
         for (auto& i : v)
         {
             if(i->id==id){
