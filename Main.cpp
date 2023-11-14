@@ -31,16 +31,17 @@ int main(){
     if(archivo.is_open()){
         while(getline(archivo, linea)){
             istringstream iss(linea);
-            string tipo, nombre, genero, id;
+            string tipo, nombre, genero, id, duracion_str;
             int duracion, numCalificaciones = 0;
             float calificacion = 0; 
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
-            if(!(iss >> tipo >> id >> nombre >> duracion >> genero)){
+            if(!(iss >> tipo >> id >> nombre >> duracion_str >> genero)){
                 // La operación de lectura falló. Maneja el error aquí.
                 cerr << "Error al leer los datos del archivo.\n";
             }else {
-            videos.push_back(make_shared<Pelicula>(tipo, nombre, id, genero, 0, 0, 0.0));
+                duracion = stoi(duracion_str);
+                videos.push_back(make_shared<Pelicula>(tipo, nombre, id, genero, 0, 0, 0.0));
             }
             // Peliculas.push_back(make_unique<Pelicula>(tipo, genero, nombre, id, duracion, 0, 0));
             // pasarlos al constructor
