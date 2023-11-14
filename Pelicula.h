@@ -12,16 +12,7 @@ class Pelicula:public Video
         Pelicula();
         // constructor con parametros
         Pelicula(string tipo, string nombre, string id, string genero, int duracion, int numCalificaciones, float calificaciones) 
-        : Video(tipo, nombre, id, genero, duracion, numCalificaciones, calificacion){};
-        friend ostream& operator<<(ostream& os, Pelicula& p){
-            os<<"Tipo: "<<p.tipo<<endl;
-            os<<"Genero: "<<p.genero<<endl;
-            os<<"Nombre: "<<p.nombre<<endl;
-            os<<"Id: "<<p.id<<endl;
-            os<<"Duracion: "<<p.duracion<<endl;
-            os<<"Calificacion: "<<p.calificacion<<endl;
-            return os;
-        };   
+        : Video(tipo, nombre, id, genero, duracion, numCalificaciones, calificacion){};           
 };
 
 #endif
