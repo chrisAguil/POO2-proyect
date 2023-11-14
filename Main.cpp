@@ -59,8 +59,6 @@ int main(){
             string tipo2, nombre2, genero2, id2, serie2, episodio2, duracion_str2;
             int duracion2, numCalificaciones2 = 0;
             float calificacion2 = 0;
-            // aqui debo de crear el vector de objetos de tipo Video
-            // la clase serie tiene mas argumentos como los instancio
             if (!(iss >> tipo2 >> id >> nombre2 >> duracion_str2 >> genero >> serie2 >> episodio2)) {
                 // La operación de lectura falló. Maneja el error aquí.
                 cerr << "Error al leer los datos del archivo.\n";
