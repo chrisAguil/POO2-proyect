@@ -28,7 +28,7 @@ int main(){
     // funcion split() para separar los datos de la linea
     // leer de dos archivos
     // uno de peliculas y otro de series
-
+    vector<shared_ptr<Video>> videos;
     archivo.open("peliculas.txt");
     if(archivo.is_open()){
         while(getline(archivo, linea)){
@@ -39,7 +39,8 @@ int main(){
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
             iss >> tipo >> id >> nombre >> duracion >> genero;
-            Peliculas.push_back(make_unique<Pelicula>(tipo, genero, nombre, id, duracion, 0, 0));
+            videos.push_back(make_shared<Pelicula>(tipo, nombre, duracion, genero, 0, id, 0, 0));
+            // Peliculas.push_back(make_unique<Pelicula>(tipo, genero, nombre, id, duracion, 0, 0));
             // pasarlos al constructor
         }
         archivo.close();
@@ -178,7 +179,4 @@ int main(){
 //       para que si el tipo es s, entonces recopile los datos de la clase
 // como lo implemento?
 
-// como asigno correctamente al vector de objetos de tipo Video
-// los datos del archivo de texto?
-
-// cual es la diferencia entre hacer el vector de punteros de tipo Video?
+// shared_ptr<Video> v = make_shared<Pelicula>(tipo, nombre, 0, genero, 0, id, 0, 0);
