@@ -8,10 +8,15 @@ using namespace std;
 class Serie: public Video
 {
 protected:
-    string serie, episodio;
-    
+    string serie, 
+           episodio;
+
 public:
-    Serie(string tipo, string nombre, int duracion, string genero, float calificacion, string id, int numCalificaciones, string serie, string episodio);
+    Serie(string tipo, string nombre, 
+          int duracion, string genero, 
+          float calificacion, string id, 
+          int numCalificaciones, 
+          string serie, string episodio);
     Serie();
     // sobre escribir el metodo imrpimeXCalif
 
@@ -19,3 +24,4 @@ public:
 };
 
 #endif
+// 360 lineas de codigo

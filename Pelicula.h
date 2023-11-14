@@ -6,13 +6,13 @@
 
 using namespace std;
 
-class Pelicula:public Video{
+class Pelicula:public Video
+{
     public:
         Pelicula();
-        // constructor con parametros que se inicializa con la lista de inicializacion de la clase base
+        // constructor con parametros
         Pelicula(string tipo, string nombre, string id, string genero, int duracion, int numCalificaciones, float calificaciones) 
         : Video(tipo, nombre, id, genero, duracion, numCalificaciones, calificacion){};
-        // funcion amiga
         friend ostream& operator<<(ostream& os, Pelicula& p){
             os<<"Tipo: "<<p.tipo<<endl;
             os<<"Genero: "<<p.genero<<endl;
