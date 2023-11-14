@@ -1,5 +1,5 @@
 #include "Serie.h"
-#include <string>
+
 #include <iostream>
 using namespace std;
 
@@ -16,31 +16,4 @@ ostream &operator<<(ostream &os, Serie &s)
     os<<s.id<<","<<s.nombre<<","<<s.duracion<<","<<s.genero<<",["<<s.serie<<", "<<s.episodio<<"]"<<s.calificacion;
     return os;
 }
-void Serie::imprimeXcalif(vector<Video*> &v, float calif){
-    vector<Video> temporal;
-    for (Video* video : v)
-    {
-        if (video->getCalificacion()==calif)
-        {
-            temporal.push_back(*video);
-        }
-    }
-    for (Video video : temporal)
-    {
-        cout<<video<<endl;
-    }
-}
-void Serie::imprimeXgenero(vector<Video*> &v, string &genero){
-    vector<Video> temporal;
-    for (Video* video : v)
-    {
-        if (video->getGenero()==genero)
-        {
-            temporal.push_back(*video);
-        }
-    }
-    for (Video video : temporal)
-    {
-        cout<<video<<endl;
-    }
-}
+

@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <memory>
+
 #include "Serie.h"
 #include "Video.h"
 #include "Pelicula.h"
@@ -17,27 +20,30 @@ int main(){
 
     // hacer dos vectores uno de series y otro de peliculas
     string genero; // genero del video a imprimir
-    vector<Video*> Peliculas; // vector de peliculas
-    vector<Video*> Series; // vector de series
     int opcion = 3; // opcion del menu
     string linea; // linea del archivo
     ifstream archivo; // archivo de texto
     // funcion split() para separar los datos de la linea
     // leer de dos archivos
     // uno de peliculas y otro de series
-
+    vector<shared_ptr<Video>> videos;
     archivo.open("peliculas.txt");
     if(archivo.is_open()){
         while(getline(archivo, linea)){
             istringstream iss(linea);
-            string tipo, nombre, genero, id, serie, episodio;
+            string tipo, nombre, genero, id, duracion_str;
             int duracion, numCalificaciones = 0;
-            float calificacion = 0;
+            float calificacion = 0; 
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
-            iss >> tipo >> id >> nombre >> duracion >> genero;
-            Video *v = new Pelicula(tipo, genero, nombre, id, duracion, 0, 0);
-            Peliculas.push_back(v);
+            if(!(iss >> tipo >> id >> nombre >> duracion_str >> genero)){
+                // La operación de lectura falló. Maneja el error aquí.
+                cerr << "Error al leer los datos del archivo.\n";
+            }else {
+                int duracion = stoi(duracion_str);
+                videos.push_back(make_shared<Pelicula>(tipo, nombre, id, genero, duracion, 0, 0.0));
+                }
+            // Peliculas.push_back(make_unique<Pelicula>(tipo, genero, nombre, id, duracion, 0, 0));
             // pasarlos al constructor
         }
         archivo.close();
@@ -50,16 +56,21 @@ int main(){
     if(archivo.is_open()){
         while(getline(archivo, linea)){
             istringstream iss(linea);
-            string tipo, nombre, genero, id, serie, episodio;
+            string tipo, nombre, genero, id, serie, episodio, duracion_str;
             int duracion, numCalificaciones = 0;
             float calificacion = 0;
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
-            iss >> tipo >> id >> nombre >> duracion >> genero >> serie >> episodio;
-            Video *v = new Serie(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio);
-            Series.push_back(v);
+            if (!(iss >> tipo >> id >> nombre >> duracion_str >> genero >> serie >> episodio)) {
+                // La operación de lectura falló. Maneja el error aquí.
+                cerr << "Error al leer los datos del archivo.\n";
+            }else {
+                int duracion = stoi(duracion_str);
+                videos.push_back(make_shared<Serie>(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio));
+            }
             // pasarlos al constructor
         }
+        archivo.close();
     }
     else{
         cout << "No se pudo abrir el archivo" << endl;
@@ -67,7 +78,7 @@ int main(){
     
     while (opcion != 0 && continuar)
     {
-        cout << "1. Imprimir Peliculas" << endl;
+        cout << "1. Imprimir el catalogo" << endl;
         cout << "2. Calificar video" << endl;
         cout << "3. Imprimir series por calificacion" << endl;
         cout << "4. Imprimir peliculas por calificacion" << endl;
@@ -79,13 +90,9 @@ int main(){
         switch (opcion)
         {
         case 1:
-            // imprime el Peliculas
-            cout << "Peliculas" << endl;
-            for(Video* v: Peliculas){
-                cout << *v << endl;
-            }
-            cout << "Series" << endl;
-            for(Video* v: Series){
+            // imprime el catalogo
+            cout << "Catalogo: " << endl;
+            for(auto& v: videos){
                 cout << *v << endl;
             }
             break;
@@ -95,50 +102,44 @@ int main(){
             cin >> calif;
             cout << "Que video quieres calificar? (introduce su id)" << endl;
             cin >> id;
-            for(Video* v: Peliculas){
-                if(v->getId() == id && v->getCalificacion() == 0){
+            for(auto& v: videos){
+                if(v->getId() == id && v->getNumCalificaciones() == 0){
                     v->setCalificacion(calif);
-                    break;
                 }
                 else{
-                    v->calificarVideo(Peliculas, id, calif);
-                    break;
+                    v->calificarVideo(videos, id, calif);
                 }
             }
             break;
         case 3:
             // imprime series por calificacion
-            for( Video* v: Series){
+            for( auto& v: videos){
                 if(v->getTipo() == "s"){
-                    v->imprimeXcalif(Peliculas, calif);
-                    break;
+                    v->imprimeXcalif(videos, calif);
                 }
             }
             break;
         case 4:
             // imprime peliculas por calificacion
-            for( Video* v: Peliculas){
+            for( auto& v: videos){
                 if(v->getTipo() == "p"){
-                    v->imprimeXcalif(Peliculas, calif);
-                    break;
+                    v->imprimeXcalif(videos, calif);
                 }
             }
             break;
         case 5:
             // imprime series por genero
-            for( Video* v: Series){
+            for( auto& v: videos){
                 cout << "Que genero te gustaria ver? " << endl;
                 cin >> genero;
-                v->imprimeXgenero(Series, genero);
-                break;
+                v->imprimeXgenero(videos, genero);
             }
             break;
         case 6:
-            for( Video* v: Peliculas){
+            for( auto& v: videos){
                 cout << "Que genero te gustaria ver? " << endl;
                 cin >> genero;
-                v->imprimeXgenero(Peliculas, genero);
-                break;
+                v->imprimeXgenero(videos, genero);
             }
         
             break;
@@ -150,13 +151,6 @@ int main(){
             cout << "Opcion no valida" << endl;
             break;
         }
-    }
-    // borrar la memoria asignada
-    for(Video* v: Peliculas){
-        delete v;
-    }
-    for(Video* v: Series){
-        delete v;
     }
     
     return 0;
@@ -178,7 +172,4 @@ int main(){
 //       para que si el tipo es s, entonces recopile los datos de la clase
 // como lo implemento?
 
-// como asigno correctamente al vector de objetos de tipo Video
-// los datos del archivo de texto?
-
-// cual es la diferencia entre hacer el vector de punteros de tipo Video?
+// shared_ptr<Video> v = make_shared<Pelicula>(tipo, nombre, 0, genero, 0, id, 0, 0);
