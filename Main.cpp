@@ -36,7 +36,6 @@ int main(){
             float calificacion = 0; 
             // aqui debo de crear el vector de objetos de tipo Video
             // la clase serie tiene mas argumentos como los instancio
-            iss >> tipo >> id >> nombre >> duracion >> genero;
             if(!(iss >> tipo >> id >> nombre >> duracion >> genero)){
                 // La operación de lectura falló. Maneja el error aquí.
                 cerr << "Error al leer los datos del archivo.\n";
@@ -65,7 +64,6 @@ int main(){
                 // La operación de lectura falló. Maneja el error aquí.
                 cerr << "Error al leer los datos del archivo.\n";
             }else {
-                iss >> tipo >> id >> nombre >> duracion >> genero >> serie >> episodio;
                 videos.push_back(make_shared<Serie>(tipo, nombre, duracion, genero, 0, id, 0, serie, episodio));
             }
             // pasarlos al constructor
