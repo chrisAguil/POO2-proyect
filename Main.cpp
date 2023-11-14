@@ -25,7 +25,9 @@ int main(){
     ifstream archivo; // archivo de texto
 
     vector<shared_ptr<Video>> videos;
+
     archivo.open("peliculas.txt");
+
     if(archivo.is_open())
     {
         while(getline(archivo, linea))
@@ -59,6 +61,7 @@ int main(){
     }
 
     archivo.open("series.txt");
+    
     if(archivo.is_open())
     {
         while(getline(archivo, linea))
@@ -82,10 +85,7 @@ int main(){
         }
         archivo.close();
     }
-    else
-    {
-        cout << "No se pudo abrir el archivo" << endl;
-    }
+    else { cout << "No se pudo abrir el archivo" << endl; }
     
     while (opcion != 0 && continuar)
     {

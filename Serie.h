@@ -10,7 +10,7 @@ class Serie: public Video
 protected:
     string serie, 
            episodio;
-           
+
 public:
     Serie(string tipo, string nombre, 
           int duracion, string genero, 
@@ -24,3 +24,4 @@ public:
 };
 
 #endif
+// 360 lineas de codigo
