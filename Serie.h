@@ -9,6 +9,7 @@ class Serie: public Video
 {
 protected:
     string serie, episodio;
+    
 public:
     Serie(string tipo, string nombre, int duracion, string genero, float calificacion, string id, int numCalificaciones, string serie, string episodio);
     Serie();

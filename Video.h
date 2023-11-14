@@ -12,6 +12,7 @@ class Video{
         string tipo, genero, nombre, id;
         float calificacion;
         int duracion, numCalificaciones;
+        
     public:
         Video(); //constructor default
         Video(string, string, string, string, int, int, float);

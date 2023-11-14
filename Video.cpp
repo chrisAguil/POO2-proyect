@@ -21,7 +21,8 @@ Video::Video(string tipo, string nombre, string id, string genero, int duracion,
 // bloque de setters
 void Video::setCalificacion(float calificacion){
     // verificamos que la calificacion este entre 0 y 5
-    if(0<=calificacion<=5){
+    if(calificacion >= 0 && calificacion <= 5)
+    {
         this->calificacion=calificacion;
     }
     else{ 
@@ -33,7 +34,7 @@ void Video::setCalificacion(float calificacion){
 void Video::imprimeXgenero(vector<shared_ptr<Video>> &v, string &genero){
     for (auto& video : v)
     {
-        if (video->getGenero()==genero)
+        if (video->getGenero() == genero)
         {
             cout<<*video<<endl;
         }
@@ -43,7 +44,7 @@ void Video::imprimeXgenero(vector<shared_ptr<Video>> &v, string &genero){
 void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float &calif){
     for (auto& video : v)
     {
-        if (video->getCalificacion()==calif)
+        if (video->getCalificacion() == calif)
         {
             cout<<*video<<endl;
         }
@@ -54,7 +55,8 @@ void Video::calificarVideo(vector<shared_ptr<Video>> &v, string &id, float &cali
     if (calificacion >= 1 && calificacion <= 5){
         for (auto& i : v)
         {
-            if(i->id==id){
+            if(i->id == id)
+            {
                 int califPromedio=i->calificacion;
                 int cont=i->numCalificaciones;
                 float promedio= round((califPromedio*cont+calificacion)/(cont+1));
