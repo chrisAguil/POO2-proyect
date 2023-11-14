@@ -78,7 +78,7 @@ int main(){
     
     while (opcion != 0 && continuar)
     {
-        cout << "1. Imprimir Peliculas" << endl;
+        cout << "1. Imprimir el catalogo" << endl;
         cout << "2. Calificar video" << endl;
         cout << "3. Imprimir series por calificacion" << endl;
         cout << "4. Imprimir peliculas por calificacion" << endl;
@@ -90,12 +90,8 @@ int main(){
         switch (opcion)
         {
         case 1:
-            // imprime el Peliculas
-            cout << "Peliculas" << endl;
-            for(auto& v: videos){
-                cout << *v << endl;
-            }
-            cout << "Series" << endl;
+            // imprime el catalogo
+            cout << "Catalogo: " << endl;
             for(auto& v: videos){
                 cout << *v << endl;
             }
@@ -107,7 +103,7 @@ int main(){
             cout << "Que video quieres calificar? (introduce su id)" << endl;
             cin >> id;
             for(auto& v: videos){
-                if(v->getId() == id && v->getCalificacion() == 0){
+                if(v->getId() == id && v->getNumCalificaciones() == 0){
                     v->setCalificacion(calif);
                     break;
                 }

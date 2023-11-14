@@ -20,7 +20,8 @@ class Video{
         //getters
         string getGenero(){return genero;}
         string getTipo(){return tipo;}
-        int getCalificacion(){return calificacion;}
+        float getCalificacion(){return calificacion;}
+        int getNumCalificaciones(){return numCalificaciones;}
         string getId(){return id;}
         //metodos de la clase
         // que sentido tienen los metodos guardadGenero y guardarCalif?
