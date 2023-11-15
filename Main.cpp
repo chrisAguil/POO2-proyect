@@ -230,10 +230,10 @@ int main()
             // iterar sobre el vector de videos
             for(auto& v: videos)
             {
-                // si el id del video es igual al id que se busca y no tiene calificaciones
-                if(v->getId() == id && v->getNumCalificaciones() == 0)
+                // si no tiene calificaciones
+                if(v->getNumCalificaciones() == 0)
                 {
-                    // se le asigna la calificacion al video
+                    // se le asigna la calificacion su primera calificacion
                     v->setCalificacion(calif);
                 }
                 // si el id del video es igual al id que se busca y ya tiene calificaciones

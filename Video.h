@@ -19,14 +19,14 @@ class Video{
         Video(string, string, string, string, int, int, float);
 
        // setters
-        void setCalificacion(float);
+        virtual void setCalificacion(float);
 
         // getters
-        string getGenero(){return genero;}
-        string getTipo(){return tipo;}
-        float getCalificacion(){return calificacion;}
-        int getNumCalificaciones(){return numCalificaciones;}
-        string getId(){return id;}
+        virtual string getGenero(){return genero;}
+        virtual string getTipo(){return tipo;}
+        virtual float getCalificacion(){return calificacion;}
+        virtual int getNumCalificaciones(){return numCalificaciones;}
+        virtual string getId(){return id;}
 
         // metodos virtuales
         virtual void imprimeXgenero(vector<shared_ptr<Video>> &, string &);

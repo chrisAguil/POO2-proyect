@@ -1,4 +1,6 @@
 #include "Video.h"
+
+#include <stdexcept>
 #include <memory>
 #include <iostream>
 #include <vector>
@@ -35,16 +37,19 @@ Video::Video(string tipo, string nombre, string id, string genero, int duracion,
 // Sett para validar la calificacion
 // ----------------------------------
 
-void Video::setCalificacion(float calificacion){
+void Video::setCalificacion(float calificacionPasada){
     // verificamos que la calificacion este entre 0 y 5
-    if(calificacion >= 0 && calificacion <= 5)
+    if(calificacionPasada >= 0 && calificacionPasada <= 5)
     {
-        this->calificacion=calificacion;
+        calificacion = calificacionPasada;
+    }
+    else if (numCalificaciones == 0)
+    {
+        calificacion = 0.0;
     }
     else
     { 
-        this->calificacion=0;
-        cout<<"Ingresa un valor valido"<<endl;
+        throw std::invalid_argument("Calificacion invalida");
     }
 }
 
@@ -82,36 +87,37 @@ void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float &calif){
 
 // metodo para calificar videos
 void Video::calificarVideo(vector<shared_ptr<Video>> &v, string &id, float &calificacion){
-    // se vuelve a validar la calificacion
-    if (calificacion >= 1 && calificacion <= 5)
+    if (calificacion >= 0 && calificacion <= 5)
     {
-        // recorremos el vector
+        // recorremos el vector inteligente
         for (auto& i : v)
         {
             // si el id del video es igual al id que se busca
-            if(i->id==id)
+            if(i->getId() == id)
             {
                 // se calcula el promedio de la calificacion
-                int califPromedio = i->calificacion; 
+                float califPromedio = i->calificacion; 
                 int cont = i->numCalificaciones;
                 // se redondea el promedio
                 float promedio = round((califPromedio*cont+calificacion)/(cont+1));
                 
                 // se asigna el promedio al video
-                i->calificacion=promedio;
+                i->calificacion = promedio;
                 // se aumenta el numero de calificaciones
                 i->numCalificaciones++;
+                cout << "Calificacion agregada" << endl << endl;
                 return;
             }
-            else
-            {
-                // si no se encuentra el id el video no existe
-                cout<<"Id no encontrado"<<endl;
-                break;
-            }
         }
+        // si llegamos al final del vector y la funcion no ha hecho el return 
+        // significa que no se encontro el video
+        cout << "No se encontro el video" << endl << endl;
+        return;
     }
-    cout << "valor invalido" << endl;
+    else{
+        cout<<" estoy orgulloso de ti por este proyecto Chris "<<endl;
+    }
+
 }
 
 // ------------------------------
