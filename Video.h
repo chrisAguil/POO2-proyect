@@ -29,9 +29,10 @@ class Video{
         virtual string getId(){return id;}
 
         // metodos virtuales
+        virtual void incrementaCalificacion();
         virtual void imprimeXgenero(vector<shared_ptr<Video>> &, string &);
         virtual void imprimeXcalif(vector<shared_ptr<Video>> &, float&);
-        virtual void calificarVideo(vector<shared_ptr<Video>> &, string&, float&);
+        virtual void calificarVideo(float);
 
         // funcion amiga 
         friend ostream& operator<<(ostream& os, Video& vd);

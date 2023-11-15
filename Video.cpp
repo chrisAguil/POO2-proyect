@@ -1,10 +1,9 @@
 #include "Video.h"
-
+#include "util.h"
 #include <stdexcept>
 #include <memory>
 #include <iostream>
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
@@ -30,7 +29,7 @@ Video::Video(string tipo, string nombre, string id, string genero, int duracion,
     this->duracion=duracion;
     this->numCalificaciones = 0;
     // utilizamos set para validar la calificacion
-    setCalificacion(calificacion);
+    this->calificacion = calificacion;
 }
 
 // ----------------------------------
@@ -41,7 +40,16 @@ void Video::setCalificacion(float calificacionPasada){
     // verificamos que la calificacion este entre 0 y 5
     if(calificacionPasada >= 0 && calificacionPasada <= 5)
     {
-        calificacion = calificacionPasada;
+        if(numCalificaciones == 0) {
+            calificacion = calificacionPasada;
+            incrementaCalificacion();
+        } else {
+            float califPromedio = getCalificacion(); 
+            int cont = getNumCalificaciones();
+            float promedio = (califPromedio*cont+calificacionPasada)/(cont+1);
+            calificacion = promedio;
+            incrementaCalificacion();
+        }
     }
     else if (numCalificaciones == 0)
     {
@@ -56,6 +64,10 @@ void Video::setCalificacion(float calificacionPasada){
 // ------------------------------
 // Metodos virtuales
 // ------------------------------
+
+void Video::incrementaCalificacion(){
+    numCalificaciones++;
+}
 
 // metodo para imprimir videos por genero
 void Video::imprimeXgenero(vector<shared_ptr<Video>> &v, string &genero){
@@ -86,38 +98,26 @@ void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float &calif){
 }
 
 // metodo para calificar videos
-void Video::calificarVideo(vector<shared_ptr<Video>> &v, string &id, float &calificacion){
+void Video::calificarVideo(float calificacion){
+    cout << "Inicializando calificacion" << endl << endl;
+
     if (calificacion >= 0 && calificacion <= 5)
     {
-        // recorremos el vector inteligente
-        for (auto& i : v)
-        {
-            // si el id del video es igual al id que se busca
-            if(i->getId() == id)
+            string videoId = getId();
+            trim(videoId);
+            trim(id);
+            if(videoId == id)
             {
-                // se calcula el promedio de la calificacion
-                float califPromedio = i->calificacion; 
-                int cont = i->numCalificaciones;
-                // se redondea el promedio
-                float promedio = round((califPromedio*cont+calificacion)/(cont+1));
-                
                 // se asigna el promedio al video
-                i->calificacion = promedio;
+                setCalificacion(calificacion);
                 // se aumenta el numero de calificaciones
-                i->numCalificaciones++;
                 cout << "Calificacion agregada" << endl << endl;
                 return;
             }
-        }
-        // si llegamos al final del vector y la funcion no ha hecho el return 
-        // significa que no se encontro el video
-        cout << "No se encontro el video" << endl << endl;
-        return;
     }
     else{
         cout<<" estoy orgulloso de ti por este proyecto Chris "<<endl;
     }
-
 }
 
 // ------------------------------

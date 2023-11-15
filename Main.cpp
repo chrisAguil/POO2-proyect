@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 
+#include "util.h"
 #include "Serie.h"
 #include "Video.h"
 #include "Pelicula.h"
@@ -138,6 +139,8 @@ int main()
                 {
                     throw runtime_error("Error al leer los datos del archivo.");
                 }
+                trim(id);
+                cout << "ID leido del archivo: " << id << "\n";
                 // convierte la duracion de string a int
                 int duracion = stoi(duracion_str);
                 // crea un objeto de tipo Serie y lo guarda en el vector inteligente
@@ -230,15 +233,20 @@ int main()
             // iterar sobre el vector de videos
             for(auto& v: videos)
             {
-                // si no tiene calificaciones
-                if(v->getNumCalificaciones() == 0)
+                if(v->getId() == id) // verifica si el ID del video coincide con el ID ingresado por el usuario
                 {
-                    // se le asigna la calificacion su primera calificacion
-                    v->setCalificacion(calif);
+                    // si no tiene calificaciones
+                    if(v->getNumCalificaciones() == 0)
+                    {
+                        // se le asigna la calificacion su primera calificacion
+                        v->setCalificacion(calif);
+                        v->incrementaCalificacion();
+                    }
+                    // si el id del video es igual al id que se busca y ya tiene calificaciones
+                    // se le asigna la calificacion al video con otro metodo que las promedia
+                    else {v->calificarVideo(calif);}
+                    break; // detiene el bucle después de calificar el video correcto
                 }
-                // si el id del video es igual al id que se busca y ya tiene calificaciones
-                // se le asigna la calificacion al video con otro metodo que las promedia
-                else {v->calificarVideo(videos, id, calif);}
             }
             break;
 
