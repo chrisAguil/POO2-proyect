@@ -1,5 +1,7 @@
 #include "Video.h"
+
 #include "util.h"
+
 #include <stdexcept>
 #include <memory>
 #include <iostream>
@@ -90,8 +92,8 @@ void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float &calif){
     // recorremos el vector
     for (auto& video : v)
     {
-        // si la calificacion del video es igual a la calificacion que se busca
-        if (video->getCalificacion()==calif)
+        // si la calificacion del video es mayor o igual a la calificacion que se busca
+        if (video->getCalificacion() >= calif)
         {
             // se imprime el video con ayuda del operador sobrecargado
             cout<<*video<<endl;
