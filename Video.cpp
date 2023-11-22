@@ -22,13 +22,12 @@ Video::Video():Video("v","","","",0,0,0.0){}
 Video::Video(string tipo, string nombre, string id, string genero, int duracion, int numCalificaciones, float calificacion)
 {
     // inicializamos los atributos
-    this->tipo=tipo;
-    this->nombre=nombre;
-    this->id=id;
-    this->genero=genero;
-    this->duracion=duracion;
+    this->tipo = tipo;
+    this->nombre = nombre;
+    this->id = id;
+    this->genero = genero;
+    this->duracion = duracion;
     this->numCalificaciones = 0;
-    // utilizamos set para validar la calificacion
     this->calificacion = calificacion;
 }
 
@@ -43,7 +42,9 @@ void Video::setCalificacion(float calificacionPasada){
         if(numCalificaciones == 0) {
             calificacion = calificacionPasada;
             incrementaCalificacion();
-        } else {
+        } 
+        else 
+        {
             float califPromedio = getCalificacion(); 
             int cont = getNumCalificaciones();
             float promedio = (califPromedio*cont+calificacionPasada)/(cont+1);
@@ -54,6 +55,7 @@ void Video::setCalificacion(float calificacionPasada){
     else if (numCalificaciones == 0)
     {
         calificacion = 0.0;
+        incrementaCalificacion();
     }
     else
     { 
@@ -98,10 +100,10 @@ void Video::imprimeXcalif(vector<shared_ptr<Video>> &v, float &calif){
 }
 
 // metodo para calificar videos
-void Video::calificarVideo(float calificacion){
+void Video::calificarVideo(float calificacionPasada){
     cout << "Inicializando calificacion" << endl << endl;
 
-    if (calificacion >= 0 && calificacion <= 5)
+    if (calificacionPasada >= 0 && calificacionPasada <= 5)
     {
             string videoId = getId();
             trim(videoId);
@@ -109,14 +111,14 @@ void Video::calificarVideo(float calificacion){
             if(videoId == id)
             {
                 // se asigna el promedio al video
-                setCalificacion(calificacion);
+                setCalificacion(calificacionPasada);
                 // se aumenta el numero de calificaciones
                 cout << "Calificacion agregada" << endl << endl;
                 return;
             }
     }
     else{
-        cout<<" estoy orgulloso de ti por este proyecto Chris "<<endl;
+        cout << "Calificacion invalida" << endl << endl;
     }
 }
 

@@ -194,10 +194,8 @@ int main()
     {
         std::cout << "1. Imprimir el catalogo" << std::endl;
         std::cout << "2. Calificar video" << std::endl;
-        std::cout << "3. Imprimir series por calificacion" << std::endl;
-        std::cout << "4. Imprimir peliculas por calificacion" << std::endl;
-        std::cout << "5. Imprimir series por genero" << std::endl;
-        std::cout << "6. Imprimir peliculas por genero" << std::endl;
+        std::cout << "3. Imprimir videos por calificacion" << std::endl;
+        std::cout << "4. Imprimir videos por genero" << std::endl;
         std::cout << "0. Salir" << std::endl;
         std::cout << "Opcion: ";
         std::cin >> opcion;
@@ -233,6 +231,11 @@ int main()
             // iterar sobre el vector de videos
             for(auto& v: videos)
             {
+                // usar trim para quitar los espacios en blanco
+                string idVideo = v->getId();
+                trim(id);
+                trim(idVideo);
+                // si el id del video es igual al id que se busca
                 if(v->getId() == id) // verifica si el ID del video coincide con el ID ingresado por el usuario
                 {
                     // si no tiene calificaciones
@@ -255,13 +258,11 @@ int main()
         // ------------------------------
 
         case 3:
-            // imprime series por calificacion
-            for( auto& v: videos)
-            {
-                // si el tipo del video es serie
-                // se imprime la serie con su calificacion
-                if(v->getTipo() == "s"){v->imprimeXcalif(videos, calif);}
-            }
+            // imprime videos por calificacion
+            std::cout << "Que calificacion te gustaria ver? " << std::endl;
+            std::cin >> calif;
+
+            videos[0]->imprimeXcalif(videos, calif);
             break;
 
         // ------------------------------
@@ -269,46 +270,11 @@ int main()
         // ------------------------------
 
         case 4:
-            // imprime peliculas por calificacion
-            for( auto& v: videos)
-            {
-                // si el tipo del video es pelicula
-                // se imprime la pelicula con su calificacion
-                if(v->getTipo() == "p"){v->imprimeXcalif(videos, calif);}
-            }
-            break;
-
-        // ------------------------------
-        // Caso 5
-        // ------------------------------
-
-        case 5:
-            // imprime series por genero
+            // imprime videos por genero
             std::cout << "Que genero te gustaria ver? " << std::endl;
             std::cin >> genero;
-            for( auto& v: videos)
-            {
-                // si el tipo del video es serie
-                // se imprime la serie con su genero
-                if(v->getTipo() == "s"){v->imprimeXgenero(videos, genero);}
-            }
-            break;
 
-        // ------------------------------
-        // Caso 6
-        // ------------------------------
-
-        case 6:
-            // imprime peliculas por genero
-            std::cout << "Que genero te gustaria ver? " << std::endl;
-            std::cin >> genero;
-            
-            for( auto& v: videos)
-            {
-                // si el tipo del video es pelicula
-                // se imprime la pelicula con su genero
-                if(v->getTipo() == "p"){v->imprimeXgenero(videos, genero);}
-            }
+            videos[0]->imprimeXgenero(videos, genero);
             break;
 
         // ------------------------------
